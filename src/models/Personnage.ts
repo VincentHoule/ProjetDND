@@ -134,7 +134,6 @@ function isPersonnage(arg: unknown): arg is IPersonnage {
   return (
     !!arg &&
     typeof arg === 'object' &&
-    '_id' in arg && typeof arg._id === 'number' && 
     'nom' in arg && typeof arg.nom === 'string' && 
     'classe' in arg && typeof arg.classe === 'string' && regex.test(arg.classe) &&
     'race' in arg && typeof arg.race === 'string' && 
