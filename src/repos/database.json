@@ -1,0 +1,75 @@
+{
+  "perso": [
+    {
+      "nom": "Crotus Morus",
+      "classe": "Moine",
+      "niveau" : 12,
+      "pv": 112,
+      "armes":[{
+        "nom": "Baton",
+        "de": "1d8",
+        "degat": "contondant" 
+      },
+      {
+        "nom": "Fouet serpent",
+        "de": "4d8",
+        "degat": "tranchant" 
+      }
+    ],
+      "stats": {
+        "force": 13,
+        "dexterite": 18,
+        "constitution": 16,
+        "intelligence": 6,
+        "sagesse": 18,
+        "charisme": 10
+      },
+      "creation":"",
+      "mort": false
+    },
+    {
+      "nom": "Rassir Trivor",
+      "classe": "Barde",
+      "niveau" : 20,
+      "pv": 165,
+      "armes":[{
+        "nom": "Archet",
+        "de": "1d8",
+        "degat": "tranchant" 
+      }
+    ],
+      "stats": {
+        "force": 13,
+        "dexterite": 20,
+        "constitution": 18,
+        "intelligence": 10,
+        "sagesse": 12,
+        "charisme": 26
+      },
+      "creation":"",
+      "mort": false
+    },
+    {
+      "nom": "Godfred Osborn",
+      "classe": "Barbare",
+      "niveau" : 20,
+      "pv": 225,
+      "armes":[{
+        "nom": "Berserker",
+        "de": "2d6",
+        "degat": "tranchant" 
+      }
+    ],
+      "stats": {
+        "force": 22,
+        "dexterite": 16,
+        "constitution": 20,
+        "intelligence": 12,
+        "sagesse": 12,
+        "charisme": 16
+      },
+      "creation":"",
+      "mort": true
+    }
+  ]
+}
