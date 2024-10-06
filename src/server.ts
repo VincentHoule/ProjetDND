@@ -20,13 +20,25 @@ import HttpStatusCodes from '@src/common/HttpStatusCodes';
 import { RouteError } from '@src/common/classes';
 import { NodeEnvs } from '@src/common/misc';
 import authenticateToken from './util/authenticateToken';
+import swaggerUi from "swagger-ui-express";
 
 // **** Variables **** //
 
 const app = express();
 
+// Documentation Swagger
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(undefined, {
+    swaggerOptions: {
+      url: "documentation.json",
+    },
+  })
+);
+
 // Pour authentifier le jeton de l'utilisateur
-app.use(authenticateToken);
+//app.use(authenticateToken);
 
 // Basic middleware
 app.use(express.json());

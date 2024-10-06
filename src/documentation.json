@@ -1,19 +1,19 @@
 {
     "openapi": "3.1.0",
     "info": {
-        "title": "Projet DND",
-        "summary": "Api qui sert a créer des personnages dnd",
-        "description": "Dnd c'est bien",
+        "title": "Rappels-Tâches",
+        "summary": "Api qui sert à créer des tâches avec des sous-tâches pour s'en rappeler.",
+        "description": "Elle permet de créer des tâches propres à chaque utilisateur et d'y affecter des sous-tâches",
         "contact": {
             "name": "Vincent Houle",
             "url": "https://www.example.com/support",
             "email": "monadresse@gmail.com"
         },
-        "version": "1.0.1 "
+        "version": "2.0.1"
     },
     "servers": [
         {
-            "url": "",
+            "url": "https://two241013-patate01.onrender.com",
             "description": "Serveur en ligne"
         },
         {
@@ -22,14 +22,25 @@
         }
     ],
     "paths": {
-        "/personnage": {
+        "/tachesMemoire/taches/listes": {
             "get": {
-                "description": "Retourne la liste de tous les personnages",
-                "summary": "Liste des personnages",
+                "description": "Retourne la liste des tâches d'un utilisateur qui ne sont pas completées",
+                "summary": "Liste des tâches",
                 "tags": [
                     "SELECT"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "utilisateur_id",
+                        "in": "params",
+                        "description": "permet de choisir l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
                 "responses": {
                     "400": {
                         "description": "Lorsque le format des attributs n'est pas respecté",

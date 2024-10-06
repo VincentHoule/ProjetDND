@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 import moment from 'moment';
 
 // Interface pour les armes
@@ -6,6 +6,7 @@ export interface IArme {
   nom: string;
   de: string;
   degat: string;
+  _id?:string;
 }
 
 // Interface des statistiquess
@@ -16,6 +17,7 @@ export interface IStat {
   intelligence: number;
   sagesse: number;
   charisme: number;
+  _id?: string;
 }
 
 // Schema de arme
@@ -68,6 +70,7 @@ export interface IPersonnage {
   stats: IStat;
   creation: Date;
   mort: boolean;
+  _id?: string;
 }
 
 // Interface pour le token
@@ -78,10 +81,10 @@ export interface IPersoLogin {
 
 // Schema pour le personnage
 const PersonnageSchema = new Schema<IPersonnage>({
-  nom: {type: String, unique: true, require: [true, "Le champs nom est requis"],
+  nom: {type: String, unique: true, required: [true, "Le champs nom est requis"],
     maxlength: [40, "Longueur du nom maximale du nom est de 40"]},
 
-  classe: {type: String, require: [true, "Le champs classe est requis"],
+  classe: {type: String, required: [true, "Le champs classe est requis"],
     validate: {
       validator: function (v: string) {
         return /^(Guerrier)|(Barde)|(Barbare)|(Ensorceleur)|(Clerc)|(Paladin)|(Occultiste)|(Roublard)|(Moine)|(Rodeur)|(Magicien)|(Artificier)|(Druide)$/.test(
@@ -92,33 +95,33 @@ const PersonnageSchema = new Schema<IPersonnage>({
         `${props.value} n'est pas une classe valide!`,
     }
   },
-
-  race: { type: String, require: [true, "Le champs race est requis"],
+  race: { type: String, required: [true, "Le champs race est requis"],
     maxlength: [50, "La longueur maximale de la race est de 50"]},
 
-  niveau: {type: Number, require: [true, "Le champs niveau est requis"],
+  niveau: {type: Number, required: [true, "Le champs niveau est requis"],
     min: [1, "Le niveau minimale est de 1"],
     max: [20, "Le niveau maximale est de 20"]},
 
-  pv: {type: Number, require: [true, "Le champs pv est requis"],
+  pv: {type: Number, required: [true, "Le champs pv est requis"],
     min: [0, "Les pv minimal sont de 0"]},
 
-  armes: {type: [armeSchema], require: [true, "Le champs armes est requis"],
+  armes: {type: [armeSchema], required: [true, "Le champs armes est requis"],
     maxlength: [3, "Le personnage ne peut d'avoir 3 armes"]},
 
-  stats: {type: statSchema, require: [true, "Le champs stats est requis"]},
+  stats: {type: statSchema, required: [true, "Le champs stats est requis"]},
 
-  creation: {type: Date, require: [true, "Le champs creation est requis"],
+  creation: {type: Date, required: [true, "Le champs creation est requis"],
     validate : {
       validator : function (v: Date){
         return moment(v).isValid() && v < new Date();
       },
       message: () =>
         `Votre date n'est pas une date valide! Exemple de format : 2023-12-17T08:24:00.000Z ou bien Ou bien votre date est dans le future`,
-    }
+    },
+    
   },
-
-  mort: { type: Boolean},
+  mort: { type: Boolean, required: [true, "Le champs mort est requis"]},
+  _id: {type: String, required : false}
 
 });
 
@@ -157,10 +160,12 @@ function isPersoLogin(arg: unknown): arg is IPersoLogin {
   );
 }
 
+mongoose.pluralize(null);
 export const Personnage = model<IPersonnage>('personnage', PersonnageSchema);
 export const PersonLogin = model<IPersoLogin>('personLogin', PersoLoginSchema);
 
-export default {
-  isPersonnage,
-  isPersoLogin
-}
+export default{
+  isPersoLogin,
+  isPersonnage
+
+} as const

@@ -1,14 +1,13 @@
-import { IUser } from '@src/models/User';
+import { IPersonnage } from '@src/models/Personnage';
 import 'supertest';
 
-
 declare module 'supertest' {
-
-  export interface Response  {
+  export interface Response {
     headers: Record<string, string[]>;
     body: {
-      error: string;
-      users: IUser[];
+      error?: string;
+      errors?: Error.ValidationError;
+      personnages: IPersonnage[];
     };
   }
 }

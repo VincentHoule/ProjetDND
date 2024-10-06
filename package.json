@@ -27,6 +27,7 @@
     "node": ">=8.10.0"
   },
   "dependencies": {
+    "@jazim/mock-mongoose": "^1.0.1",
     "@types/jsonwebtoken": "^9.0.7",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
@@ -44,7 +45,9 @@
     "mongoose": "^8.6.3",
     "moongoose": "^0.0.5",
     "morgan": "^1.10.0",
-    "ts-command-line-args": "^2.5.1"
+    "swagger-ui-express": "^5.0.1",
+    "ts-command-line-args": "^2.5.1",
+    "tsoa": "^6.4.0"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
@@ -56,8 +59,10 @@
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.11.0",
     "@types/supertest": "^6.0.2",
+    "@types/swagger-ui-express": "^4.1.6",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
+    "concurrently": "^9.0.1",
     "eslint": "^9.10.0",
     "eslint-plugin-node": "^11.1.0",
     "find": "^0.3.0",

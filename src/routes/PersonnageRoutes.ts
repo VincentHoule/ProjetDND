@@ -3,6 +3,7 @@ import PersoService from '@src/services/PersonnageService';
 import  {Personnage, IPersonnage } from '@src/models/Personnage';
 import { IReq, IRes } from './common/types';
 import check from './common/check';
+import { ToObjectOptions } from 'mongoose';
 
 
 
@@ -38,7 +39,10 @@ async function getOne(req: IReq, res: IRes) {
  * @returns 
  */
 async function add(req: IReq, res: IRes) {
-  let { perso }  = req.body
+  if (req.body == null) {
+    return res.status(HttpStatusCodes.BAD_REQUEST).json({error :"Personnage requis"})
+  }
+  let { perso }  = req.body;
   perso = await PersoService.add(perso as IPersonnage);
   return res.status(HttpStatusCodes.CREATED).json({ perso });
 }

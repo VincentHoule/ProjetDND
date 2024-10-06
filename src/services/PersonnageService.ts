@@ -7,7 +7,7 @@ import { IPersonnage } from '@src/models/Personnage';
 
 // **** Variables **** //
 
-export const PERSONNAGE_NOT_FOUND_ERR = 'Person not found';
+export const PERSONNAGE_NOT_FOUND_ERR = 'Personnage non trouvé';
 
 
 // **** Functions **** //
@@ -52,20 +52,17 @@ function add(person: IPersonnage): Promise<IPersonnage> {
  * @param person le personnage à modifier
  * @returns le personnage modifié
  */
-async function update(person: IPersonnage): Promise<IPersonnage> {
-  /*
-  const persists = await PersonRepo.persists(person._id);
+async function update(person: IPersonnage): Promise<IPersonnage  | null>{
+  const persists = await PersonRepo.persists(person._id as string);
   if (!persists) {
     throw new RouteError(
       HttpStatusCodes.NOT_FOUND,
       PERSONNAGE_NOT_FOUND_ERR
     );
   }
-    */
   // Return personnage
   return PersonRepo.update(person);
 }
-
 /**
  * Suppression d'un personnage
  * @param _id id du personnage à supprimer

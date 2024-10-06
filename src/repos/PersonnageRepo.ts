@@ -1,4 +1,7 @@
+import HttpStatusCodes from '@src/common/HttpStatusCodes';
 import { Personnage, IPersonnage} from '@src/models/Personnage';
+import { STATUS_CODES } from 'http';
+import { isValidObjectId } from 'mongoose';
 
 // **** Functions **** //
 
@@ -15,7 +18,11 @@ async function getOne(_id: string): Promise<IPersonnage | null> {
  * Vérifie si le personnage existe.
  */
 async function persists(_id: string): Promise<boolean> {
-  const perso = await Personnage.find({_id : _id});
+  if(!isValidObjectId(_id))
+  {
+    return false;
+  }
+  const perso = await Personnage.findById(_id);
   return perso !== null;
 }
 
@@ -39,10 +46,10 @@ async function add(person: IPersonnage): Promise<IPersonnage> {
 /**
  * Mets à jour un personnage.
  */
-async function update(person: IPersonnage): Promise<IPersonnage> {
+async function update(person: IPersonnage): Promise<IPersonnage | null>{
   const persoToUpdate = await Personnage.findOne({nom : person.nom});
   if (persoToUpdate === null) {
-    throw new Error('Personne non trouvé');
+     throw HttpStatusCodes.BAD_REQUEST
   }
 
   persoToUpdate.nom = person.nom;
@@ -63,7 +70,7 @@ async function update(person: IPersonnage): Promise<IPersonnage> {
  * Supprimer un personnage.
  */
 async function delete_(_id: string): Promise<void> {
-  await Personnage.findOneAndDelete({_id : _id});
+  await Personnage.findByIdAndDelete(_id);
 }
 
 /**
