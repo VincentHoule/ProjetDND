@@ -1,7 +1,6 @@
 /**
  * Setup express server.
  */
-
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import path from 'path';
@@ -104,7 +103,6 @@ app.get('/users', (_: Request, res: Response) => {
 // Connecter à la base de données
 
 connect(EnvVars.MongoDb_URI)
-  .then(() => app.listen(EnvVars.Port, () => logger.info(SERVER_START_MSG)))
   .catch((err) => logger.err(err, true));
 
 

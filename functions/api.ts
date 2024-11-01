@@ -2,7 +2,7 @@
  * Point d'entrée pour les fonctions de Netlify
  */
 
-import  app  from "../src/server";
+import app from "../src/server";
 
 import dotenv from 'dotenv';
 
