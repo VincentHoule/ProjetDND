@@ -5,7 +5,7 @@ import insertUrlParams from 'inserturlparams';
 
 import app from '@src/server';
 
-import {Personnage, IPersonnage } from '@src/models/Personnage';
+import { Personnage, IPersonnage } from '@src/models/Personnage';
 import HttpStatusCodes from '@src/common/HttpStatusCodes';
 import { PERSONNAGE_NOT_FOUND_ERR } from '@src/services/PersonnageService';
 
@@ -50,6 +50,34 @@ const obtenirDonneesBidonPersonnages = () => {
       creation: "2018-12-17T08:24:00.000Z" as unknown as Date,
       mort: false,
       _id: '66f0349f55792b968aa56c69'
+    },
+    {
+      nom: "Godfred Osborn",
+      classe: "Barbare",
+      race: "Humain",
+      niveau : 20,
+      pv: 225,
+      armes:[{
+        nom: "Berserker",
+        de: "2d6",
+        degat: "tranchant",
+        _id: '670937a50132e6e99aef4652'
+
+      }
+    ],
+      stats: {
+        force: 22,
+        dexterite: 16,
+        constitution: 20,
+        intelligence: 12,
+        sagesse: 12,
+        charisme: 16,
+        _id: '66f03c86226dc52734d264c5'
+
+      },
+      creation:"2018-12-17T08:24:00.000Z" as unknown as Date,
+      mort: true,
+      _id: '66f0349f55792b968aa56c67'
     }
   ];
 };
@@ -65,7 +93,7 @@ describe('PersonnageRouter', () => {
   });
 
   // Get all de Personnage
-  
+
   describe(`"GET:/api/personnage/"`, () => {
     // Initialise l'API
     const api = (cb: TApiCb) => agent.get(`/api/personnage/`).end(apiCb(cb));
@@ -89,6 +117,142 @@ describe('PersonnageRouter', () => {
       }
     );
   });
+
+  // Get un de Personnage
+
+  describe(`"GET:/api/personnage/un/"`, () => {
+    // Initialise l'API
+    const DUMMY_Personnage = obtenirDonneesBidonPersonnages()[0];
+    const callApi = (_id: string, cb: TApiCb) =>
+      agent.get(insertUrlParams(`/api/personnage/un/:_id`, { _id })).end(apiCb(cb));
+
+    // Réussite
+    it(
+      'doit retourner un objet JSON avec un personnage et un code de status de ' +
+      `"${HttpStatusCodes.OK}" si la requête est réussie.`,
+      (done) => {
+        // Préparer le simulacre de Mongoose
+        
+        mockify(Personnage)
+          .toReturn(DUMMY_Personnage, 'findOne');
+        // Appel de l'API
+        callApi(DUMMY_Personnage._id, (res) => {
+          expect(res.status).toBe(HttpStatusCodes.OK);
+          expect(res.body).toEqual({ perso: DUMMY_Personnage });
+          done();
+        });
+      }
+    );
+
+    it(
+      'doit retourner un objet JSON avec le message d\'erreur "' +
+      `${PERSONNAGE_NOT_FOUND_ERR}" et un code de statut ` +
+      `"${HttpStatusCodes.NOT_FOUND}" si l'identifiant n'a pas été trouvé.`,
+      (done) => {
+        // Préparer le simulacre de Mongoose
+        mockify(Personnage).toReturn(null, 'findOne');
+
+        // Appeler l'API
+        callApi('aaa', (res) => {
+          expect(res.status).toBe(HttpStatusCodes.NOT_FOUND);
+          expect(res.body.error).toBe(PERSONNAGE_NOT_FOUND_ERR);
+          done();
+        });
+      }
+    );
+  });
+
+   // Get toutes les Personnages d'une classe
+
+   describe(`"GET:/api/personnage/classe/"`, () => {
+    // Initialise l'API
+    const DUMMY_Personnage = obtenirDonneesBidonPersonnages();
+    const callApi = (classe: string, cb: TApiCb) =>
+      agent.get(insertUrlParams(`/api/personnage/classe/:classe`, { classe })).end(apiCb(cb));
+
+    // Réussite
+    it(
+      'doit retourner un objet JSON avec tous les personnages ayant la même classe et un code de status de ' +
+      `"${HttpStatusCodes.OK}" si la requête est réussie.`,
+      (done) => {
+        // Préparer le simulacre de Mongoose
+        
+        mockify(Personnage)
+          .toReturn(DUMMY_Personnage.filter((perso) => perso.classe === "Moine" ), 'find');
+        // Appel de l'API
+        callApi("Moine", (res) => {
+          expect(res.status).toBe(HttpStatusCodes.OK);
+          expect(res.body).toEqual({ perso: DUMMY_Personnage.filter((perso) => perso.classe === "Moine" )});
+          done();
+        });
+      }
+    );
+
+    it(
+      'doit retourner un objet JSON avec le message d\'erreur "' +
+      `"Votre classe n'existe pas." et un code de statut ` +
+      `"${HttpStatusCodes.BAD_REQUEST}" si l'identifiant n'a pas été trouvé.`,
+      (done) => {
+        // Préparer le simulacre de Mongoose
+        mockify(Personnage).toReturn(null, 'find');
+
+        // Appeler l'API
+        callApi('pnj', (res) => {
+          expect(res.status).toBe(HttpStatusCodes.BAD_REQUEST);
+          expect(res.body.error).toBe("Votre classe n'existe pas.");
+          done();
+        });
+      }
+    );
+  });
+
+  
+   // Get toutes les Personnages entre deux niveaux
+
+   describe(`"GET:/api/personnage/niveau/"`, () => {
+    // Initialise l'API
+    const DUMMY_Personnage = obtenirDonneesBidonPersonnages();
+    const callApi = ( cb: TApiCb) =>
+      agent.get(`/api/personnage/niveau/?min=2&max=13`).end(apiCb(cb));
+      
+    // Réussite
+    it(
+      'doit retourner un objet JSON avec tous les personnages ayant la même classe et un code de status de ' +
+      `"${HttpStatusCodes.OK}" si la requête est réussie.`,
+      (done) => {
+        // Préparer le simulacre de Mongoose
+        
+        mockify(Personnage)
+          .toReturn(DUMMY_Personnage.filter((perso) => perso.niveau >= 2 && perso.niveau <= 13 ), 'find');
+        // Appel de l'API
+        callApi((res) => {
+          expect(res.status).toBe(HttpStatusCodes.OK);
+          expect(res.body).toEqual({ perso: DUMMY_Personnage.filter((perso) => perso.niveau >= 2 && perso.niveau <= 13 )});
+          done();
+        });
+      }
+    );
+    const callApi2 = ( cb: TApiCb) =>
+      agent.get(`/api/personnage/niveau/?min=1&max=24`).end(apiCb(cb));
+    it(
+      'doit retourner un objet JSON avec le message d\'erreur "' +
+      `"Votre niveau maximum ou minimum n'existe pas." et un code de statut ` +
+      `"${HttpStatusCodes.BAD_REQUEST}" si l'identifiant n'a pas été trouvé.`,
+      (done) => {
+        // Préparer le simulacre de Mongoose
+        mockify(Personnage)
+        .toReturn(DUMMY_Personnage.filter((perso) => perso.niveau >= 1 && perso.niveau <= 24 ), 'find');
+
+        // Appeler l'API
+        callApi2((res) => {
+          expect(res.status).toBe(HttpStatusCodes.BAD_REQUEST);
+          expect(res.body.error).toBe("Votre niveau maximum ou minimum n'existe pas.");
+          done();
+        });
+      }
+    );
+  });
+
 
   // Test l'ajout d'un personnage
   describe(`"POST:/api/personnage/add"`, () => {

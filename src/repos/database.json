@@ -24,7 +24,7 @@
         "sagesse": 18,
         "charisme": 10
       },
-      "creation":"",
+      "creation":"2023-08-08T08:24:00.000Z",
       "mort": false
     },
     {
@@ -46,7 +46,7 @@
         "sagesse": 12,
         "charisme": 26
       },
-      "creation":"",
+      "creation":"2024-07-21T08:24:00.000Z",
       "mort": false
     },
     {
@@ -68,7 +68,7 @@
         "sagesse": 12,
         "charisme": 16
       },
-      "creation":"",
+      "creation":"2021-05-17T08:24:00.000Z",
       "mort": true
     }
   ]
