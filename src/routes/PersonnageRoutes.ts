@@ -16,8 +16,6 @@ import { ToObjectOptions } from 'mongoose';
  * @returns 
  */
 async function getAll(_: IReq, res: IRes) {
-  console.log("test03")
-
   const perso = await PersoService.getAll();
   return res.status(HttpStatusCodes.OK).json({ perso });
 }

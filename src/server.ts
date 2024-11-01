@@ -9,7 +9,6 @@ import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
 
-
 import 'express-async-errors';
 
 import BaseRouter from '@src/routes';
@@ -21,9 +20,13 @@ import { RouteError } from '@src/common/classes';
 import { NodeEnvs } from '@src/common/misc';
 import authenticateToken from './util/authenticateToken';
 import swaggerUi from "swagger-ui-express";
+import { connect } from 'mongoose';
+
+
 
 // **** Variables **** //
-
+const SERVER_START_MSG =
+  'Express server started on port: ' + EnvVars.Port.toString();
 const app = express();
 
 // Documentation Swagger
@@ -96,6 +99,13 @@ app.get('/', (_: Request, res: Response) => {
 app.get('/users', (_: Request, res: Response) => {
   return res.sendFile('users.html', { root: viewsDir });
 });
+
+
+// Connecter à la base de données
+
+connect(EnvVars.MongoDb_URI)
+  .then(() => app.listen(EnvVars.Port, () => logger.info(SERVER_START_MSG)))
+  .catch((err) => logger.err(err, true));
 
 
 // **** Export default **** //

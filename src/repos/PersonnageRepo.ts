@@ -30,8 +30,6 @@ async function persists(_id: string): Promise<boolean> {
  * Lire tous les personnages.
  */
 async function getAll(): Promise<IPersonnage[]> {
-  console.log("test02")
-
   const perso = await Personnage.find();
   return perso;
 }
@@ -77,8 +75,8 @@ async function delete_(_id: string): Promise<void> {
 
 /**
  * Lire tous les personnages d'une classe
- * @param classe 
- * @returns 
+ * @param classe string de la classe personnage
+ * @returns les personnages trouvés
  */
 async function getClasse(classe: string): Promise<IPersonnage[] | null>  {
   const perso = await Personnage.find({ "classe" : classe });
@@ -87,10 +85,10 @@ async function getClasse(classe: string): Promise<IPersonnage[] | null>  {
 }
 
 /**
- * 
- * @param min 
- * @param max 
- * @returns 
+ * Lire tous les personnages entre deux niveaux
+ * @param min int du niveau minimal
+ * @param max int du niveau maximal
+ * @returns les personnages entre le min et le max
  */
 async function getNiveau(min: number, max: number) : Promise<IPersonnage[] | null>{
   const perso = await Personnage.find({"niveau" : {$gte : min , $lte : max}})
