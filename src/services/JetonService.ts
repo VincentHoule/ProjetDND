@@ -16,8 +16,8 @@ export const UTILISATEUR_NOT_FOUND_ERR = 'Personnage non trouvé';
  */
 async function generateToken(perso: IPersoLogin): Promise<string> {
   const persoBD = (await PersoService.getAll()).filter(
-    (perso) => perso.classe === perso.classe
-  )[0];
+    (_perso) => _perso.nom === perso.nom
+  )[0]
   if (persoBD && persoBD.nom === perso.nom) {
     return jwt.sign(perso.nom, process.env.JWT_SECRET as string);
   } else {

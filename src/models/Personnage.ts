@@ -120,8 +120,7 @@ const PersonnageSchema = new Schema<IPersonnage>({
     },
     
   },
-  mort: { type: Boolean, required: [true, "Le champs mort est requis"]},
-  _id: {type: String, required : false}
+  mort: { type: Boolean, required: [true, "Le champs mort est requis"]}
 
 });
 
