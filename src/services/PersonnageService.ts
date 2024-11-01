@@ -17,6 +17,7 @@ export const PERSONNAGE_NOT_FOUND_ERR = 'Personnage non trouvé';
  * @returns tous les personnages
  */
 function getAll(): Promise<IPersonnage[]> {
+  console.log("test01")
   return PersonRepo.getAll();
 }
 

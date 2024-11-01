@@ -30,6 +30,8 @@ async function persists(_id: string): Promise<boolean> {
  * Lire tous les personnages.
  */
 async function getAll(): Promise<IPersonnage[]> {
+  console.log("test02")
+
   const perso = await Personnage.find();
   return perso;
 }
