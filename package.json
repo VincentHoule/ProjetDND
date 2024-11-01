@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@jazim/mock-mongoose": "^1.0.1",
+    "@netlify/functions": "^2.8.2",
     "@types/jsonwebtoken": "^9.0.7",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
@@ -45,6 +46,7 @@
     "mongoose": "^8.6.3",
     "moongoose": "^0.0.5",
     "morgan": "^1.10.0",
+    "serverless-http": "^3.2.0",
     "swagger-ui-express": "^5.0.1",
     "ts-command-line-args": "^2.5.1",
     "tsoa": "^6.4.0"
@@ -68,6 +70,7 @@
     "find": "^0.3.0",
     "fs-extra": "^11.2.0",
     "jasmine": "^5.3.0",
+    "netlify-cli": "^17.37.2",
     "nodemon": "^3.1.5",
     "supertest": "^7.0.0",
     "ts-node": "^10.9.2",

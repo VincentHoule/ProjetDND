@@ -1,0 +1,17 @@
+[build]
+command = "npm install && npm run build"
+functions = "functions"
+[functions]
+external_node_modules = ["express"]
+included_files=["./functions/database.json"]
+node_bundler = "esbuild"
+[[redirects]]
+force = true
+from = "/api/*"
+status = 200
+to = "/.netlify/functions/api/:splat"
+[[redirects]]
+force = true
+from = "/images/*"
+status = 200
+to = "/public/images/:splat"
