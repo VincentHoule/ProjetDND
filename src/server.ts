@@ -24,23 +24,22 @@ import { connect } from 'mongoose';
 
 
 // **** Variables **** //
-const SERVER_START_MSG =
-  'Express server started on port: ' + EnvVars.Port.toString();
 const app = express();
 
 // Documentation Swagger
-app.use(
-  "/docs",
-  swaggerUi.serve,
-  swaggerUi.setup(undefined, {
-    swaggerOptions: {
-      url: "documentation.json",
-    },
-  })
-);
+app.get('/api-docs/', async (req, res) => {
+  res.set('Content-Security-Policy', 'script-src blob:');
+  res.set('Content-Security-Policy', 'worker-src blob:');
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// redirige vers api-docs
+app.get('/', (req, res) => {
+  res.redirect('/api-docs');
+});
 
 // Pour authentifier le jeton de l'utilisateur
-app.use(authenticateToken);
+//app.use(authenticateToken);
 
 // Basic middleware
 app.use(express.json());
