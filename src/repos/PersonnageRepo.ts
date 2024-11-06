@@ -18,6 +18,8 @@ async function getOne(_id: string): Promise<IPersonnage | null> {
  * Vérifie si le personnage existe.
  */
 async function persists(_id: string): Promise<boolean> {
+  console.log(_id)
+
   if(!isValidObjectId(_id))
   {
     return false;
