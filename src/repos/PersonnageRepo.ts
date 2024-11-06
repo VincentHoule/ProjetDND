@@ -3,6 +3,9 @@ import { Personnage, IPersonnage} from '@src/models/Personnage';
 import { STATUS_CODES } from 'http';
 import { isValidObjectId } from 'mongoose';
 
+export const PERSONNAGE_NOT_FOUND_ERR = 'Personnage non trouvé. ps: le nom ne peut être changer';
+
+
 // **** Functions **** //
 
 /**
@@ -18,8 +21,6 @@ async function getOne(_id: string): Promise<IPersonnage | null> {
  * Vérifie si le personnage existe.
  */
 async function persists(_id: string): Promise<boolean> {
-  console.log(_id)
-
   if(!isValidObjectId(_id))
   {
     return false;
@@ -49,7 +50,7 @@ async function add(person: IPersonnage): Promise<IPersonnage> {
  * Mets à jour un personnage.
  */
 async function update(person: IPersonnage): Promise<IPersonnage | null>{
-  const persoToUpdate = await Personnage.findOne({nom : person.nom});
+  const persoToUpdate = await Personnage.findById({_id : person._id});
   if (persoToUpdate === null) {
      throw HttpStatusCodes.BAD_REQUEST
   }

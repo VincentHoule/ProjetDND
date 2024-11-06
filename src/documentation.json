@@ -1,1247 +1,670 @@
 {
-    "openapi": "3.1.0",
-    "info": {
-        "title": "Rappels-Tâches",
-        "summary": "Api qui sert à créer des tâches avec des sous-tâches pour s'en rappeler.",
-        "description": "Elle permet de créer des tâches propres à chaque utilisateur et d'y affecter des sous-tâches",
-        "contact": {
-            "name": "Vincent Houle",
-            "url": "https://www.example.com/support",
-            "email": "monadresse@gmail.com"
-        },
-        "version": "2.0.1"
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Personnage dnd",
+    "summary": "Api qui sert à créer des personnage dnd.",
+    "description": "L'api permet de créer divers personnage et de les triés.",
+    "contact": {
+      "name": "Vincent Houle",
+      "url": "e",
+      "email": "monadresse@gmail.com"
     },
-    "servers": [
-        {
-            "url": "https://two241013-patate01.onrender.com",
-            "description": "Serveur en ligne"
-        },
-        {
-            "url": "http://127.0.0.1:3000/",
-            "description": "Serveur de développement"
-        }
-    ],
-    "paths": {
-        "/tachesMemoire/taches/listes": {
-            "get": {
-                "description": "Retourne la liste des tâches d'un utilisateur qui ne sont pas completées",
-                "summary": "Liste des tâches",
-                "tags": [
-                    "SELECT"
-                ],
-                "parameters": [
-                    {
-                        "name": "utilisateur_id",
-                        "in": "params",
-                        "description": "permet de choisir l'utilisateur",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 2
-                        }
-                    }
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Lorsque le format des attributs n'est pas respecté",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "L'id ne doit pas être vide"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Lorsqu'aucune tâches est affecté à l'utilisateur",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Tâches introuvable du l'utilisateur 23"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Lorsque la requête sql échoue",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de la récupération des tâches avec l'utilisateur 23"
-                                }
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "La liste des tâches selon l'utilisateur",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Taches": [
-                                            {
-                                                "id": 3,
-                                                "utilisateur_id": 1,
-                                                "titre": "laver char parents",
-                                                "description": "frotter fort",
-                                                "date_debut": "2024-04-25T00:00:00.000Z",
-                                                "date_echeance": "2024-04-30T00:00:00.000Z",
-                                                "complete": false
-                                            }
-                                        ],
-                                        "Nombre_de_Taches": 1
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tachesMemoire/taches/listesComplete": {
-            "get": {
-                "description": "Retourne la liste des tâches d'un utilisateur",
-                "summary": "Liste des tâches",
-                "tags": [
-                    "SELECT"
-                ],
-                "parameters": [
-                    {
-                        "name": "utilisateur_id",
-                        "in": "params",
-                        "description": "permet de choisir l'utilisateur",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 2
-                        }
-                    }
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Lorsque le format des attributs n'est pas respecté",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "L'id ne doit pas être vide"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Lorsqu'aucune tâches est affecté à l'utilisateur",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Tâches introuvable du l'utilisateur 23"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Lorsque la requête sql échoue",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de la récupération des tâches avec l'utilisateur 23"
-                                }
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "La liste des tâches selon l'utilisateur",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Taches": [
-                                            {
-                                                "id": 3,
-                                                "utilisateur_id": 1,
-                                                "titre": "laver char parents",
-                                                "description": "frotter fort",
-                                                "date_debut": "2024-04-25T00:00:00.000Z",
-                                                "date_echeance": "2024-04-30T00:00:00.000Z",
-                                                "complete": false
-                                            }
-                                        ],
-                                        "Nombre_de_Taches": 1
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tachesMemoire/taches/:id": {
-            "get": {
-                "description": "Retourne la tâches selon son id",
-                "summary": "SELECT une tâche",
-                "tags": [
-                    "SELECT"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "params",
-                        "description": "permet de choisir la tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example" : 2
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Retourne la tâches selon son id",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Tache": {
-                                            "id": 3,
-                                            "utilisateur_id": 1,
-                                            "titre": "laver char parent",
-                                            "description": "frotter fort",
-                                            "date_debut": "2024-04-25T00:00:00.000Z",
-                                            "date_echeance": "2024-04-30T00:00:00.000Z",
-                                            "complete": false
-                                        },
-                                        "SousTaches": [
-                                            {
-                                                "id": 1,
-                                                "tache_id": 3,
-                                                "titre": "cirer plus fort",
-                                                "complete": true
-                                            }
-                                        ]
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Format de l'id invalide",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "L'id de la tâche est obligatoire et doit être supérieur à 0"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "L'id est inexistant",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "tâches introuvable avec l'id 1. "
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Erreur lors du SELECT SQL",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de la récupération des tâche avec l'id 1. "
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Modifier les attributs d'une tâche",
-                "summary": "Update d'une tâche",
-                "tags": [
-                    "UPDATE"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "params",
-                        "description": "permet de choisir l'id de la tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 2
-                        }
-                    },
-                    {
-                        "name": "titre",
-                        "in": "body",
-                        "description": "permet de changer le titre",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "description",
-                        "in": "body",
-                        "description": "permet de changer la description",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "date_debut",
-                        "in": "body",
-                        "description": "permet de changer la date de début",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "date_echeance",
-                        "in": "body",
-                        "description": "permet de changer la date de début",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "complete",
-                        "in": "body",
-                        "description": "permet de changer le statut de la tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "bool"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "La tâche a été modifier",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Message": "La tâche laver char parent a été modifié avec succès. ",
-                                        "Tache": {
-                                            "id": 3,
-                                            "utilisateur_id": 1,
-                                            "titre": "laver char parent",
-                                            "description": "frotter fort",
-                                            "date_debut": "2024-04-25T00:00:00.000Z",
-                                            "date_echeance": "2024-04-30T00:00:00.000Z",
-                                            "complete": false
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Retourne quel champs n'est pas valide",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "message": "Le nom est vide, manquant ou invalide. "
-                                    }
-                                }
-                            }
-                        }
-                        
-                    },                    
-                    "404": {
-                        "description": "Si la tâche n'existe pas",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "message": "tâches introuvable 4"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Retourne information de l'échec de l'update",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de la modification. "
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Supprime une tâche de la base de données",
-                "summary": "DELETE tache",
-                "tags": [
-                    "DELETE"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "params",
-                        "description": "permet de choisir la tâche a supprimé",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example" : 2
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Retourne information de la réussite de la suppression",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "objet",
-                                    "example": {
-                                        "Message": "La tache Brosser le chat a été supprimé avec succès. ",
-                                        "Tache": {
-                                            "id": 6,
-                                            "utilisateur_id": 1,
-                                            "titre": "Brosser le chat",
-                                            "description": "il faut brosser Cooky",
-                                            "date_debut": "2024-04-24T00:00:00.000Z",
-                                            "date_echeance": "2024-04-28T00:00:00.000Z",
-                                            "complete": false
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Format de l'id invalide",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "objet",
-                                    "example": {
-                                        "message": "L'id du la tâche est obligatoire et doit être supérieur à 0. "
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Tâche introuvable",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "objet",
-                                    "example": {
-                                        "message": "Tâches introuvable 1. "
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Retourne information de l'échec de la suppression",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de la suppression"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "patch": {
-                "description": "Modifi la propriété complete de la tâche",
-                "summary": "UPDATE une tâche",
-                "tags": [
-                    "UPDATE"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "params",
-                        "description": "permet de choisir l'id de la tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example" : 2
-                        }
-                    },
-                    {
-                        "name": "titre",
-                        "in": "body",
-                        "description": "permet de changer le titre",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "patate"
-                        }
-                    },
-                    {
-                        "name": "description",
-                        "in": "body",
-                        "description": "permet de changer la description",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "description"
-                        }
-                    },
-                    {
-                        "name": "date_debut",
-                        "in": "body",
-                        "description": "permet de changer la date de début",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "2024-05-09"
-                        }
-                    },
-                    {
-                        "name": "date_echeance",
-                        "in": "body",
-                        "description": "permet de changer la date de début",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "2024-05-19"
-                        }
-                    },
-                    {
-                        "name": "complete",
-                        "in": "body",
-                        "description": "permet de changer le statut de la tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "bool",
-                            "example" : false
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Retourne la confirmation de la réussite de l'insertion",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Message": "La tâche laver char parent a été modifié avec succès, elle est true. ",
-                                        "Tache": {
-                                            "id": 3,
-                                            "utilisateur_id": 1,
-                                            "titre": "laver char parent",
-                                            "description": "frotter fort",
-                                            "date_debut": "2024-04-25T00:00:00.000Z",
-                                            "date_echeance": "2024-04-30T00:00:00.000Z",
-                                            "complete": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Retourne quel champs n'est pas valide",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Le nom est vide, manquant ou invalide. Le type primaire est vide, manquant ou invalide. Le type secondaire est manquant ou invalide. Les pv est vide ou invalide. L'attaque est vide ou invalide. La defense est vide ou invalide. "
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Retourne information de l'échec de l'insert",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de l'insertion"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tachesMemoire/taches/": {
-            "post": {
-                "description": "Ajoute une tâche à un utilisateur",
-                "summary": "INSERT une tâche",
-                "tags": [
-                    "INSERT"
-                ],
-                "parameters": [
-                    {
-                        "name": "utilisateur_id",
-                        "in": "params",
-                        "description": "permet de choisir l'utilisateur",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example" : 2
-                        }
-                    },
-                    {
-                        "name": "titre",
-                        "in": "body",
-                        "description": "permet de changer le titre",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "titre"
-                        }
-                    },
-                    {
-                        "name": "description",
-                        "in": "body",
-                        "description": "permet de changer la description",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "description"
-                        }
-                    },
-                    {
-                        "name": "date_debut",
-                        "in": "body",
-                        "description": "permet de changer la date de début",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "2034-05-02"
-                        }
-                    },
-                    {
-                        "name": "date_echeance",
-                        "in": "body",
-                        "description": "permet de changer la date de début",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "2999-04-02"
-                        }
-                    },
-                    {
-                        "name": "complete",
-                        "in": "body",
-                        "description": "permet de changer le statut de la tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "bool",
-                            "example" : false
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Retourne la confirmation de la réussite de l'insertion",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Info": "La tâche a été ajouté avec succès. ",
-                                        "Tâche": {
-                                            "utilisateur_id": 1,
-                                            "titre": "Brosser le chat",
-                                            "description": "il faut brosser Cooky",
-                                            "date_debut": "2024-04-24",
-                                            "date_echeance": "2024-04-28",
-                                            "complete": false
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Retourne quel champs n'est pas valide",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Le nom est vide, manquant ou invalide. Le type primaire est vide, manquant ou invalide. Le type secondaire est manquant ou invalide. Les pv est vide ou invalide. L'attaque est vide ou invalide. La defense est vide ou invalide. "
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Retourne information de l'échec de l'insert",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de l'insertion"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tachesMemoire/SousTaches/:id": {
-            "put": {
-                "description": "Modify une sous-tâches",
-                "summary": "UPDATE une sous-tâche",
-                "tags": [
-                    "UPDATE"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "params",
-                        "description": "permet de choisir la sous-tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example" : 2
-                        }
-                    },
-                    {
-                        "name": "tache_id",
-                        "in": "body",
-                        "description": "permet de changer la tâche parent",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example" : 3
-                        }
-                    },
-                    {
-                        "name": "titre",
-                        "in": "body",
-                        "description": "permet de changer le titre de la sous-tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "titre"
-                        }
-                    },
-                    {
-                        "name": "complete",
-                        "in": "body",
-                        "description": "permet de changer le statut de la tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "bool",
-                            "example" : false
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Retourne la confirmation de la réussite de la modification",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Message": "La sous-tâche cirer plus fort a été modifié avec succès",
-                                        "SousTache": {
-                                            "id": 1,
-                                            "tache_id": 3,
-                                            "titre": "cirer plus fort",
-                                            "complete": false
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Retourne quel champs n'est pas valide",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": {
-                                        "message": "L'id de la tâches est obligatoire et doit être supérieur à 0. "
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "tâche est inexistante",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": {
-                                        "message": {
-                                            "message": "tâches introuvable 30"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Échec de la requête sql",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de la requête"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "patch": {
-                "description": "Modifit le statut une sous-tâches",
-                "summary": "UPDATE une sous-tâche",
-                "tags": [
-                    "UPDATE"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "params",
-                        "description": "permet de choisir la sous-tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example" : 19
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Retourne la confirmation de la réussite de la modification",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Message": "La sous-tâche cirer plus fort a été modifié avec succès, elle est  true. ",
-                                        "SousTache": {
-                                            "id": 1,
-                                            "tache_id": 3,
-                                            "titre": "cirer plus fort",
-                                            "complete": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Sous=tâches inexistante",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": {
-                                        "message": "tâches introuvable 10"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Sous=tâches inexistante",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": {
-                                        "message": "tâches introuvable 10"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Échec de la requête sql",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de la requête"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Supprime une sous-tâches",
-                "summary": "DELETE une sous-tâche",
-                "tags": [
-                    "DELETE"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "params",
-                        "description": "permet de choisir la sous-tâche",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example" : 25
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Retourne la confirmation de la réussite de la suppression",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Message": "La sous-tâche cirer plus fort a été supprimé avec succès. ",
-                                        "SousTache": {
-                                            "id": 1,
-                                            "tache_id": 3,
-                                            "titre": "cirer plus fort",
-                                            "complete": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Sous=tâches inexistante",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": {
-                                        "message": "sous tâches introuvable 1. "
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Sous=tâches inexistante",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": {
-                                        "message": "tâches introuvable 10"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Échec de la requête sql",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de la requête"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tachesMemoire/utilisateurs/": {
-            "post": {
-                "description": "Ajoute un utilisateur",
-                "summary": "INSERT utilisateur",
-                "tags": [
-                    "INSERT"
-                ],
-                "parameters": [
-                    {
-                        "name": "nom",
-                        "in": "body",
-                        "description": "permet de donner un nom",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "Jean"
-                        }
-                    },
-                    {
-                        "name": "prenom",
-                        "in": "body",
-                        "description": "permet de donner un prenom",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "Paul"
-                        }
-                    },
-                    {
-                        "name": "courriel",
-                        "in": "body",
-                        "description": "permet de donner un courriel et de s'indentifier",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "uncourriel"
-                        }
-                    },
-                    {
-                        "name": "mot_de_passse",
-                        "in": "body",
-                        "description": "permet de donner un mot de passe et de s'indentifier",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "pas1234"
-                        }
-                    }
-                    
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Lorsque le format des attributs n'est pas respecté",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Le mot de passe doit être valide selon le format."
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Lorsque la requête sql échoue",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de l'insertion de l'utilisateur"
-                                }
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Confirmation de l'ajout de l'utilisateur",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Tâches": [
-                                            {
-                                                "Message": "Utilisateur créé",
-                                                "cle_api": "826c19f6-4bfc-4351-9e1f-3b5dcd225dc7"
-                                            }
-                                        ]
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/tachesMemoire/utilisateurs/cle": {
-            "post": {
-                "description": "Permet de voir sa cle d'api",
-                "summary": "SELECT utilisateur",
-                "tags": [
-                    "SELECT"
-                ],
-                "parameters": [
-                    {
-                        "name": "courriel",
-                        "in": "body",
-                        "description": "permet de trouver l'utilisateur",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "courrielgaming"
-                        }
-                    },
-                    {
-                        "name": "mot_de_passse",
-                        "in": "body",
-                        "description": "permet de valider l'utilisateur",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example" : "pasnonplusabcde"
-                        }
-                    }
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Lorsque le format des attributs n'est pas respecté",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Le mot de passe doit être valide selon le format."
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Le mot de passe est incorrecte",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "mauvais mot de passe ou courriel. "
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Lorsque la requête sql échoue",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string",
-                                    "example": "Erreur lors de la selection de l'utilisateur"
-                                }
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Confirmation de l'ajout de l'utilisateur",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "example": {
-                                        "Message": "Utilisateur créé",
-                                        "cle_api": "96a79751-1923-4525-b77c-2f88e1273777"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    "version": "2.0.1"
+  },
+  "servers": [
+    {
+      "url": "e",
+      "description": "Serveur en ligne"
     },
-    "components": {
-        "schemas": [
-            {
-                "tâche": {
-                    "type": "object",
-                    "required": [
-                        "id",
-                        "utilisateur_id",
-                        "titre",
-                        "description",
-                        "date_debut",
-                        "date_echeance",
-                        "complete"
-                    ],
-                    "properties": {
-                        "id": {
-                            "type": "integer"
-                        },
-                        "utilisateur_id": {
-                            "type": "integer"
-                        },
-                        "titre": {
-                            "type": "string"
-                        },
-                        "description": {
-                            "type": "string"
-                        },
-                        "date_debut": {
-                            "type": "string"
-                        },
-                        "date_echeance": {
-                            "type": "string"
-                        },
-                        "complete": {
-                            "type": "bool"
-                        }
-                    }
-                }
-            },
-            {
-                "sous-tâche": {
-                    "type": "object",
-                    "required": [
-                        "id",
-                        "tache_id",
-                        "titre",
-                        "complete"
-                    ],
-                    "properties": {
-                        "id": {
-                            "type": "integer"
-                        },
-                        "tache_id": {
-                            "type": "integer"
-                        },
-                        "titre" : {
-                            "type" : "string"
-                        },
-                        "complete": {
-                            "type": "bool"
-                        }
-                    }
-                }
-            },
-            {
-                "utilisateur": {
-                    "type": "object",
-                    "required": [
-                        "id",
-                        "nom",
-                        "prenom",
-                        "courriel",
-                        "cle_api",
-                        "password"
-
-                    ],
-                    "properties": {
-                        "id": {
-                            "type": "integer"
-                        },
-                        "nom": {
-                            "type": "string"
-                        },
-                        "prenom": {
-                            "type": "string"
-                        },
-                        "courriel": {
-                            "type": "string"
-                        },
-                        "cle_api": {
-                            "type": "string"
-                        },
-                        "password": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        ]
+    {
+      "url": "http://127.0.0.1:3000/",
+      "description": "Serveur de développement"
     }
+  ],
+  "paths": {
+    "/api/personnage": {
+      "get": {
+        "tags": [
+          "SELECT"
+        ],
+        "description": "Retourne la liste de tous les personnages",
+        "responses": {
+          "200": {
+            "description": "La liste des personnages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "pero": [
+                      {
+                        "_id": "66ffee144af98b02c370508c",
+                        "nom": "Rassir Trivor",
+                        "classe": "Barde",
+                        "niveau": 20,
+                        "pv": 165,
+                        "armes": [
+                          {
+                            "nom": "Archet",
+                            "de": "1d8",
+                            "degat": "tranchant",
+                            "_id": "66ffee144af98b02c370508d"
+                          }
+                        ],
+                        "stats": {
+                          "force": 13,
+                          "dexterite": 20,
+                          "constitution": 18,
+                          "intelligence": 10,
+                          "sagesse": 12,
+                          "charisme": 26,
+                          "_id": "66ffee144af98b02c370508e"
+                        },
+                        "creation": "2023-12-17T08:24:00.000Z",
+                        "mort": false,
+                        "__v": 0
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/personnage/un/": {
+      "get": {
+        "description": "Retourne un personnage selon son id",
+        "tags": [
+          "SELECT"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "description": "permet de choisir le personnage",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "66ffee144af98b02c370508c"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le personnage trouvé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "perso": {
+                      "_id": "66ffee144af98b02c370508c",
+                      "nom": "Rassir Trivor",
+                      "classe": "Barde",
+                      "niveau": 20,
+                      "pv": 165,
+                      "armes": [
+                        {
+                          "nom": "Archet",
+                          "de": "1d8",
+                          "degat": "tranchant",
+                          "_id": "66ffee144af98b02c370508d"
+                        }
+                      ],
+                      "stats": {
+                        "force": 13,
+                        "dexterite": 20,
+                        "constitution": 18,
+                        "intelligence": 10,
+                        "sagesse": 12,
+                        "charisme": 26,
+                        "_id": "66ffee144af98b02c370508e"
+                      },
+                      "creation": "2023-12-17T08:24:00.000Z",
+                      "mort": false,
+                      "__v": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Lorsque l'id est incorrecte ou n'existe pas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": "Personnage non trouvé"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/personnage/niveau/": {
+      "get": {
+        "description": "Retourne tous les personnages entre deux niveaux",
+        "tags": [
+          "SELECT"
+        ],
+        "parameters": [
+          {
+            "name": "min",
+            "in": "query",
+            "description": "niveau minimal",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2
+            }
+          },
+          {
+            "name": "max",
+            "in": "query",
+            "description": "niveau maximal",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 18
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retourne tous les personnages entre les deux niveaux choisis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "perso": [
+                      {
+                        "_id": "66ffee144af98b02c370508c",
+                        "nom": "Rassir Trivor",
+                        "classe": "Barde",
+                        "niveau": 20,
+                        "pv": 165,
+                        "armes": [
+                          {
+                            "nom": "Archet",
+                            "de": "1d8",
+                            "degat": "tranchant",
+                            "_id": "66ffee144af98b02c370508d"
+                          }
+                        ],
+                        "stats": {
+                          "force": 13,
+                          "dexterite": 20,
+                          "constitution": 18,
+                          "intelligence": 10,
+                          "sagesse": 12,
+                          "charisme": 26,
+                          "_id": "66ffee144af98b02c370508e"
+                        },
+                        "creation": "2023-12-17T08:24:00.000Z",
+                        "mort": false,
+                        "__v": 0
+                      },
+                      {
+                        "_id": "66fff28c4f49a197aeeccfff",
+                        "nom": "Godfred Osborn",
+                        "classe": "Barbare",
+                        "niveau": 20,
+                        "pv": 225,
+                        "armes": [
+                          {
+                            "nom": "Berserker",
+                            "de": "2d6",
+                            "degat": "tranchant",
+                            "_id": "66fff28c4f49a197aeecd000"
+                          }
+                        ],
+                        "stats": {
+                          "force": 22,
+                          "dexterite": 16,
+                          "constitution": 20,
+                          "intelligence": 12,
+                          "sagesse": 12,
+                          "charisme": 16,
+                          "_id": "66fff28c4f49a197aeecd001"
+                        },
+                        "creation": "2023-12-17T08:24:00.000Z",
+                        "mort": true,
+                        "__v": 0
+                      },
+                      {
+                        "_id": "6724dd903942c9c41d2785b9",
+                        "nom": "Crotus Morus",
+                        "classe": "Moine",
+                        "race": "Nain",
+                        "niveau": 12,
+                        "pv": 112,
+                        "armes": [
+                          {
+                            "nom": "Baton",
+                            "de": "1d8",
+                            "degat": "contondant",
+                            "_id": "6724dd903942c9c41d2785ba"
+                          },
+                          {
+                            "nom": "Fouet serpent",
+                            "de": "4d8",
+                            "degat": "tranchant",
+                            "_id": "6724dd903942c9c41d2785bb"
+                          }
+                        ],
+                        "stats": {
+                          "force": 13,
+                          "dexterite": 18,
+                          "constitution": 16,
+                          "intelligence": 6,
+                          "sagesse": 18,
+                          "charisme": 10,
+                          "_id": "6724dd903942c9c41d2785bc"
+                        },
+                        "creation": "2023-08-08T08:24:00.000Z",
+                        "mort": false,
+                        "__v": 0
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les niveaux ne sont pas entre 1 et 20",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": "Votre niveau maximum ou minimum n'existe pas."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/personnage/classe/": {
+      "get": {
+        "description": "Retourne les personnages selon leur classe",
+        "tags": [
+          "SELECT"
+        ],
+        "parameters": [
+          {
+            "name": "classe",
+            "in": "query",
+            "description": "permet de choisir la classe",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Moine"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retourne les personnages de la classe choisie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "perso": [
+                      {
+                        "_id": "6724dd903942c9c41d2785b9",
+                        "nom": "Crotus Morus",
+                        "classe": "Moine",
+                        "race": "Nain",
+                        "niveau": 12,
+                        "pv": 112,
+                        "armes": [
+                          {
+                            "nom": "Baton",
+                            "de": "1d8",
+                            "degat": "contondant",
+                            "_id": "6724dd903942c9c41d2785ba"
+                          },
+                          {
+                            "nom": "Fouet serpent",
+                            "de": "4d8",
+                            "degat": "tranchant",
+                            "_id": "6724dd903942c9c41d2785bb"
+                          }
+                        ],
+                        "stats": {
+                          "force": 13,
+                          "dexterite": 18,
+                          "constitution": 16,
+                          "intelligence": 6,
+                          "sagesse": 18,
+                          "charisme": 10,
+                          "_id": "6724dd903942c9c41d2785bc"
+                        },
+                        "creation": "2023-08-08T08:24:00.000Z",
+                        "mort": false,
+                        "__v": 0
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Si la classe choisie n'existe pas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": "Votre classe n'existe pas."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/personnage/add": {
+      "post": {
+        "description": "Ajoute un personnage",
+        "tags": [
+          "POST"
+        ],
+        "requestBody": {
+          "content": {
+            "schema": {
+              "example": {
+                "perso": {
+                  "nom": "Crotus Morus",
+                  "race": "Nain",
+                  "classe": "Moine",
+                  "niveau": 12,
+                  "pv": 112,
+                  "armes": [
+                    {
+                      "nom": "Baton",
+                      "de": "1d8",
+                      "degat": "contondant"
+                    },
+                    {
+                      "nom": "Fouet serpent",
+                      "de": "4d8",
+                      "degat": "tranchant"
+                    }
+                  ],
+                  "stats": {
+                    "force": 13,
+                    "dexterite": 18,
+                    "constitution": 16,
+                    "intelligence": 6,
+                    "sagesse": 18,
+                    "charisme": 10
+                  },
+                  "creation": "2023-08-08T08:24:00.000Z",
+                  "mort": false
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Retourne la confirmation de la réussite de la modification et le personnage ajouter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "perso": {
+                      "nom": "Crotus Morus",
+                      "classe": "Moine",
+                      "race": "Nain",
+                      "niveau": 12,
+                      "pv": 112,
+                      "armes": [
+                        {
+                          "nom": "Baton",
+                          "de": "1d8",
+                          "degat": "contondant",
+                          "_id": "672b7b7b1f452503fb82de87"
+                        },
+                        {
+                          "nom": "Fouet serpent",
+                          "de": "4d8",
+                          "degat": "tranchant",
+                          "_id": "672b7b7b1f452503fb82de88"
+                        }
+                      ],
+                      "stats": {
+                        "force": 13,
+                        "dexterite": 18,
+                        "constitution": 16,
+                        "intelligence": 6,
+                        "sagesse": 18,
+                        "charisme": 10,
+                        "_id": "672b7b7b1f452503fb82de89"
+                      },
+                      "creation": "2023-08-08T08:24:00.000Z",
+                      "mort": false,
+                      "_id": "672b7b7b1f452503fb82de86",
+                      "__v": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Retourne quel champs n'est pas valide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "errors": {
+                      "race": {
+                        "name": "ValidatorError",
+                        "message": "Le champs race est requis",
+                        "properties": {
+                          "message": "Le champs race est requis",
+                          "type": "required",
+                          "path": "race"
+                        },
+                        "kind": "required",
+                        "path": "race"
+                      }
+                    },
+                    "_message": "personnage validation failed",
+                    "name": "ValidationError",
+                    "message": "personnage validation failed: race: Le champs race est requis"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/personnage/update": {
+      "put": {
+        "description": "Modifie un personnage",
+        "tags": [
+          "UPDATE"
+        ],
+        "requestBody": {
+          "content": {
+            "schema": {
+              "example": {
+                "perso": {
+                  "_id": "6724dd903942c9c41d2785b9",
+                  "nom": "Crotus Morus",
+                  "race": "Nain",
+                  "classe": "Moine",
+                  "niveau": 12,
+                  "pv": 112,
+                  "armes": [
+                    {
+                      "nom": "Baton Argent",
+                      "de": "1d8",
+                      "degat": "contondant"
+                    },
+                    {
+                      "nom": "Fouet serpent",
+                      "de": "4d8",
+                      "degat": "tranchant"
+                    }
+                  ],
+                  "stats": {
+                    "force": 13,
+                    "dexterite": 18,
+                    "constitution": 16,
+                    "intelligence": 6,
+                    "sagesse": 18,
+                    "charisme": 10
+                  },
+                  "creation": "2018-12-17T08:24:00.000Z",
+                  "mort": false
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Retourne la confirmation de la réussite de la modification et le personnage modifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "perso": {
+                      "_id": "6724dd903942c9c41d2785b9",
+                      "nom": "Crotus Morus",
+                      "classe": "Moine",
+                      "race": "Nain",
+                      "niveau": 15,
+                      "pv": 112,
+                      "armes": [
+                        {
+                          "nom": "Baton Argent",
+                          "de": "1d8",
+                          "degat": "contondant",
+                          "_id": "672b77bc1f452503fb82de70"
+                        },
+                        {
+                          "nom": "Fouet serpent",
+                          "de": "4d8",
+                          "degat": "tranchant",
+                          "_id": "672b77bc1f452503fb82de71"
+                        }
+                      ],
+                      "stats": {
+                        "force": 13,
+                        "dexterite": 18,
+                        "constitution": 16,
+                        "intelligence": 6,
+                        "sagesse": 18,
+                        "charisme": 10,
+                        "_id": "672b77bc1f452503fb82de72"
+                      },
+                      "creation": "2018-12-17T08:24:00.000Z",
+                      "mort": false,
+                      "__v": 2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Retourne quel champs n'est pas valide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "errors": {
+                      "race": {
+                        "name": "ValidatorError",
+                        "message": "Le champs race est requis",
+                        "properties": {
+                          "message": "Le champs race est requis",
+                          "type": "required",
+                          "path": "race"
+                        },
+                        "kind": "required",
+                        "path": "race"
+                      }
+                    },
+                    "_message": "personnage validation failed",
+                    "name": "ValidationError",
+                    "message": "personnage validation failed: race: Le champs race est requis"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/personnage/delete": {
+      "delete": {
+        "description": "Supprime un personnage",
+        "tags": [
+          "DELETE"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "description": "permet de choisir le personnage",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "66ffee144af98b02c370508c"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retourne la confirmation de la suppression du personnage",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Le personnage n'existe pas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                     "error": "Personnage non trouvé"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
