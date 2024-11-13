@@ -20,11 +20,12 @@ import { NodeEnvs } from '@src/common/misc';
 import authenticateToken from './util/authenticateToken';
 import swaggerUi from "swagger-ui-express";
 import { connect } from 'mongoose';
-
-
+import cors from 'cors';
 
 // **** Variables **** //
 const app = express();
+
+app.use(cors());
 
 // Documentation Swagger
 app.get('/api-docs/', async (req, res) => {
