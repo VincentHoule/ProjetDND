@@ -21,7 +21,7 @@ async function generateToken(perso: IPersoLogin): Promise<string> {
   if (persoBD && persoBD.nom === perso.nom) {
     return jwt.sign(perso.nom, process.env.JWT_SECRET as string);
   } else {
-    return '';
+    return 'Erreur de connection';
   }
 }
 
