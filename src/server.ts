@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 });
 
 // Pour authentifier le jeton de l'utilisateur
-app.use(authenticateToken);
+//app.use(authenticateToken);
 
 // Basic middleware
 app.use(express.json());
