@@ -3,6 +3,7 @@
     {
       "nom": "Crotus Morus",
       "classe": "Moine",
+      "race" : "Nain",
       "niveau" : 12,
       "pv": 112,
       "armes":[{
@@ -30,6 +31,7 @@
     {
       "nom": "Rassir Trivor",
       "classe": "Barde",
+      "race": "Assimar",
       "niveau" : 20,
       "pv": 165,
       "armes":[{
@@ -52,6 +54,7 @@
     {
       "nom": "Godfred Osborn",
       "classe": "Barbare",
+      "race": "Humain",
       "niveau" : 20,
       "pv": 225,
       "armes":[{

@@ -18,7 +18,7 @@ async function generateToken(perso: IPersoLogin): Promise<string> {
   const persoBD = (await PersoService.getAll()).filter(
     (_perso) => _perso.nom == perso.nom
   )[0]
-  if (persoBD && persoBD.nom == perso.nom) {
+  if (persoBD && persoBD.stats._id == perso.mdp) {
     return jwt.sign(perso.nom, process.env.JWT_SECRET as string);
   } else {
     return '';

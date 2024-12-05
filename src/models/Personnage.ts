@@ -76,7 +76,7 @@ export interface IPersonnage {
 // Interface pour le token
 export interface IPersoLogin {
   nom : string,
-  classe : string
+  mdp : string
 }
 
 // Schema pour le personnage
@@ -127,7 +127,7 @@ const PersonnageSchema = new Schema<IPersonnage>({
 // Schema pour le login
 const PersoLoginSchema = new Schema<IPersoLogin>({
   nom: {type: String, required: true},
-  classe: {type: String, required: true},
+  mdp: {type: String, required: true},
 })
 
 // fonction pour savoir si les règles des paramètre sont respect.
@@ -154,7 +154,7 @@ function isPersoLogin(arg: unknown): arg is IPersoLogin {
     !!arg &&
     typeof arg === 'object' &&
     'nom' in arg && typeof arg.nom === 'string' && 
-    'classe' in arg && typeof arg.classe === 'string'
+    'mdp' in arg && typeof arg.mdp === 'string'
 
   );
 }
