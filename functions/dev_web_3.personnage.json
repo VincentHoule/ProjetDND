@@ -1,0 +1,156 @@
+[{
+  "_id": {
+    "$oid": "66ffee144af98b02c370508c"
+  },
+  "nom": "Rassir Trivor",
+  "classe": "Barde",
+  "niveau": 20,
+  "pv": 170,
+  "armes": [
+    {
+      "nom": "Archet",
+      "de": "1d8",
+      "degat": "tranchant",
+      "_id": {
+        "$oid": "66ffee144af98b02c370508d"
+      }
+    },
+    {
+      "nom": "Baton",
+      "de": "1d6",
+      "degat": "contondant",
+      "_id": {
+        "$oid": "6749db90cd7da5b7af2c54c7"
+      }
+    },
+    {
+      "nom": "Épée",
+      "de": "1d6",
+      "degat": "perforant",
+      "_id": {
+        "$oid": "6749db90cd7da5b7af2c54c8"
+      }
+    }
+  ],
+  "stats": {
+    "force": 14,
+    "dexterite": 20,
+    "constitution": 18,
+    "intelligence": 10,
+    "sagesse": 12,
+    "charisme": 26,
+    "_id": {
+      "$oid": "66ffee144af98b02c370508e"
+    }
+  },
+  "creation": {
+    "$date": "2024-11-30T00:00:00.000Z"
+  },
+  "mort": false,
+  "__v": 1,
+  "race": "Aassimar"
+},
+{
+  "_id": {
+    "$oid": "66fff28c4f49a197aeeccfff"
+  },
+  "nom": "Godfred Osborn",
+  "classe": "Barbare",
+  "niveau": 20,
+  "pv": 227,
+  "armes": [
+    {
+      "nom": "Berserker",
+      "de": "2d6",
+      "degat": "tranchant",
+      "_id": {
+        "$oid": "66fff28c4f49a197aeecd000"
+      }
+    },
+    {
+      "nom": "vide",
+      "de": "0d4",
+      "degat": "vide",
+      "_id": {
+        "$oid": "6753291ed96042076c4dc079"
+      }
+    },
+    {
+      "nom": "vide",
+      "de": "0d4",
+      "degat": "vide",
+      "_id": {
+        "$oid": "6753291ed96042076c4dc07a"
+      }
+    }
+  ],
+  "stats": {
+    "force": 22,
+    "dexterite": 16,
+    "constitution": 20,
+    "intelligence": 12,
+    "sagesse": 12,
+    "charisme": 16,
+    "_id": {
+      "$oid": "66fff28c4f49a197aeecd001"
+    }
+  },
+  "creation": {
+    "$date": "2023-12-17T08:24:00.000Z"
+  },
+  "mort": true,
+  "__v": 1,
+  "race": "Humain"
+},
+{
+  "_id": {
+    "$oid": "672b7b7b1f452503fb82de86"
+  },
+  "nom": "Crotus Morus",
+  "classe": "Moine",
+  "race": "Nain",
+  "niveau": 12,
+  "pv": 112,
+  "armes": [
+    {
+      "nom": "Baton",
+      "de": "1d8",
+      "degat": "contondant",
+      "_id": {
+        "$oid": "672b7b7b1f452503fb82de87"
+      }
+    },
+    {
+      "nom": "Fouet serpent",
+      "de": "4d8",
+      "degat": "tranchant",
+      "_id": {
+        "$oid": "672b7b7b1f452503fb82de88"
+      }
+    },
+    {
+      "nom": "Épée courte",
+      "de": "1d6",
+      "degat": "perforant",
+      "_id": {
+        "$oid": "6749b7c706b07c195ef7bf2f"
+      }
+    }
+  ],
+  "stats": {
+    "force": 13,
+    "dexterite": 18,
+    "constitution": 16,
+    "intelligence": 6,
+    "sagesse": 18,
+    "charisme": 10,
+    "_id": {
+      "$oid": "672b7b7b1f452503fb82de89"
+    }
+  },
+  "creation": {
+    "$date": "2023-08-08T08:24:00.000Z"
+  },
+  "mort": false,
+  "__v": 1
+}]

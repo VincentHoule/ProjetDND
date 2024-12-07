@@ -1,3 +1,32 @@
+
+---- Procédure d'installation ----
+
+Aller dans votre dossier désiré pour contenir le projet
+executer la commande git clone https://github.com/VincentHoule/ProjetDND.git
+npm install
+
+---- Configuration ----
+Créer les fichiers .env à partir des exemples. Le seule a modifié c'est le development.env et il faut rentrer
+ses informations à sa BD mongoose.
+
+Le fichier tailwind.config.js doit contenir :
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+      "./index.html",
+      "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+      extend: {},
+  },
+  plugins: []
+}
+
+Pour créer la base de données, le fichier executer le fichier dev_web_3.personnage.json dans 
+votre base de donnée mongoose.
+
+url de l'api: https://projet-dnd.netlify.app
+
 ## About
 
 This project was created with [express-generator-typescript](https://github.com/seanpmaxwell/express-generator-typescript).
